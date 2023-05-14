@@ -6,20 +6,21 @@ from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, Permis
 class UserProfileManager(BaseUserManager):
     """manager for user profiles"""
 
-    def create_user(self, name, email, password=None, **kwargs):
+    def create_user(self, name, email, password=None):
         """creates a new user profile"""
         if not email:
             raise ValueError('User must have an email address!')
         email = self.normalize_email(email)
-        user = self.model(name=name, email=email, **kwargs)
+        user = self.model(name=name, email=email)
         user.set_password(password)
         user.save(using=self._db)
 
         return user
     
-    def create_superuser(self, name, email, password, **kwargs):
+    def create_superuser(self, name, email, password):
         """creates superuser"""
-        user = self.create_user(name, email, password, **kwargs)
+        user = self.create_user(name, email, password)
+        
         user.is_staff = True
         user.is_superuser = True
 
