@@ -1,6 +1,7 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
+from rest_framework import viewsets
 
 from profiles_api import serializers
 
@@ -44,3 +45,18 @@ class NameApiView(APIView):
     def delete(self, request, pk=None):
         """updating an object"""
         return Response({'method' : 'delete'})
+    
+
+class NameViewSet(viewsets.ViewSet):
+    """Test API viewset"""
+
+    def list(self, request):
+        names_viewset = [
+            'David',
+            'Tyler',
+            'Rose',
+            'Georgia'
+        ]
+
+        return Response({'names' : names_viewset})
+    
